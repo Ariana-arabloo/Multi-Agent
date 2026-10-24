@@ -49,7 +49,7 @@ jobs:
           source .venv/bin/activate
           pip install bandit
           bandit -r . -ll
-
+-
 
       # ۶. زیرتسک ۵: تست ساخت ایمیج داکر
       - name: Test Docker Build
