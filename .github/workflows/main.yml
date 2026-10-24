@@ -50,6 +50,7 @@ jobs:
           pip install bandit
           bandit -r . -ll
 
+
       # ۶. زیرتسک ۵: تست ساخت ایمیج داکر
       - name: Test Docker Build
         uses: docker/build-push-action@v5
