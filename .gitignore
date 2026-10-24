@@ -1,0 +1,7 @@
+--pycache--/
+*.py[cod]
+*.class
+.venv/
+venv/
+.env
+.vscode/
