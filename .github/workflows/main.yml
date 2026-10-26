@@ -22,7 +22,7 @@ jobs:
         working-directory: ./app
         run: |
           python -m pip install --upgrade pip
-          pip install poetry
+          pip install poetry bandit
           poetry install --no-interaction --no-root
 
       - name: Run Linter (Ruff)
@@ -31,8 +31,9 @@ jobs:
           poetry run ruff check . --fix --exit-zero
 
       - name: Run Security Scan (Bandit)
+        working-directory: ./app
         run: |
-          bandit -r app/ -ll
+          poetry run bandit -r . -ll
 
       - name: Test Docker Build
         uses: docker/build-push-action@v5
