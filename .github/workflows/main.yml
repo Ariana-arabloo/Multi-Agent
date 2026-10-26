@@ -3,49 +3,41 @@ name: CI Pipeline
 on:
   pull_request:
     branches: [ "main" ]
+  push:
+    branches: [ "main" ]
 
 jobs:
   run-checks:
     runs-on: ubuntu-latest
     steps:
-      # ۱. گرفتن آخرین نسخه کدها
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # ۲. نصب پایتون
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-# نصب پایتون
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      # نصب وابستگی‌ها به صورت ساده
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install ruff bandit
-      # ۴. زیرتسک ۳: تست سینتکس و فرمت کد با Ruff
+          pip install poetry
+          poetry install --no-interaction --no-root
+
       - name: Run Linter (Ruff)
         run: |
           source .venv/bin/activate
           ruff check .
 
-      # ۵. زیرتسک ۴: اسکن امنیتی استاتیک با Bandit
       - name: Run Security Scan (Bandit)
         run: |
           source .venv/bin/activate
-          pip install bandit
-          bandit -r . -ll
+          bandit -r app/ -ll
 
-
-      # ۶. زیرتسک ۵: تست ساخت ایمیج داکر
       - name: Test Docker Build
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./app
+          file: ./app/Dockerfile
           push: false
           tags: test-image:latest
