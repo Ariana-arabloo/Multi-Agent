@@ -24,11 +24,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           poetry install --no-interaction --no-root
-
       - name: Run Linter (Ruff)
         working-directory: ./app
         run: |
-          poetry run ruff check .
+          poetry run ruff check . --fix
+          poetry run ruff format .
 
       - name: Run Security Scan (Bandit)
         run: |
