@@ -1,5 +1,6 @@
 import uuid
-from fastapi import FastAPI, status
+from fastapi import FastAPI, status, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from app.schemas import ProjectCreate
 
@@ -16,6 +17,17 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ساب‌تسک ۴: لایه مدیریت خطاهای عمومی (Global Exception Handler)
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    return JSONResponse(
+        status_code=500,
+        content={
+            "error": "Internal Server Error",
+            "message": "خطای پیش‌بینی نشده‌ای رخ داده است."
+        },
+    )
 
 @app.get("/")
 def read_root():
