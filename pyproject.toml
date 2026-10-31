@@ -1,0 +1,18 @@
+[project]
+name = "my-project"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Ariana-arabloo",email = "ariana.arabloo@gmail.com"}
+]
+requires-python = ">=3.10,<3.15"
+dependencies = [
+    "fastapi (>=0.162.0,<0.163.0)",
+    "uvicorn (>=0.54.0,<0.55.0)",
+    "litellm (>=1.106.6,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
