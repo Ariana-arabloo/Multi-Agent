@@ -12,7 +12,9 @@ dependencies = [
     "litellm (>=1.106.6,<2.0.0)",
     "redis (>=8.1.0,<9.0.0)",
     "tenacity (>=9.2.1,<10.0.0)",
-    "sse-starlette (>=3.7.0,<4.0.0)"
+    "sse-starlette (>=3.7.0,<4.0.0)",
+    "temporalio (>=1.35.0,<2.0.0)",
+    "httpx (>=0.28.1,<0.29.0)"
 ]
 
 
