@@ -5,3 +5,4 @@ from langchain_core.messages import BaseMessage
 class AgentState(TypedDict):
     
     messages: Annotated[list[BaseMessage], operator.add]
+    iteration_count: int

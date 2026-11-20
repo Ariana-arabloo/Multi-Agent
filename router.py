@@ -1,12 +1,15 @@
 from langgraph.graph import END
 from state import AgentState
 
-def tester_router(state: AgentState) -> str:
-    last_message = state["messages"][-1].content
+def tester_router(state: AgentState):
+    is_approved = state.get("is_approved", False)
     
-    if "Critical" in last_message:
-        print("Router: Bug found, routing back to Developer 🔄")
+    if is_approved:
+        return "end_node"
+        
+    count = state.get("iteration_count", 0)
+    
+    if count >= 3:
+        return "human_mediation"
+    else:
         return "developer_node"
-    
-    print("Router: Code approved, finishing process ✅")
-    return END

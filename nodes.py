@@ -8,10 +8,23 @@ def developer_node(state: AgentState):
     messages_to_send = [SystemMessage(content=system_prompt)] + state["messages"]
     
     return {"messages": [AIMessage(content="Code has been written.")]}
-
 def tester_node(state: AgentState):
     print("--- TESTER AGENT WORKING ---")
     system_prompt = get_agent_prompt("security_tester_agent")
     messages_to_send = [SystemMessage(content=system_prompt)] + state["messages"]
-    
-    return {"messages": [AIMessage(content="Critical: I found a bug!")]}
+
+    current_count = state.get("iteration_count", 0)
+    is_approved = False
+
+    if is_approved:
+        return {
+            "messages": [AIMessage(content="Code approved.")],
+            "is_approved": True,
+            "iteration_count": 0
+        }
+    else:
+        return {
+            "messages": [AIMessage(content="Critical: I found a bug!")],
+            "is_approved": False,
+            "iteration_count": current_count + 1
+        }
